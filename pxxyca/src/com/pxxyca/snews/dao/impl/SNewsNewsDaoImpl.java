@@ -4,15 +4,13 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.SessionFactory;	
 
 import com.pxxyca.snews.dao.SNewsNewsDao;
 import com.pxxyca.snews.domain.NewsAndCategoryAndContentDTO;
 import com.pxxyca.snews.domain.jsj_snews_category;
 import com.pxxyca.snews.domain.jsj_snews_content;
 import com.pxxyca.snews.domain.jsj_snews_news;
-import com.pxxyca.snews.domain.page_list_newsVO;
-
 
 public class SNewsNewsDaoImpl implements SNewsNewsDao {
 
@@ -29,13 +27,13 @@ public class SNewsNewsDaoImpl implements SNewsNewsDao {
 		Session session = getSession();
 		session.save(content);
 		return true;
-
 	}
 
 	@Override
 	public Boolean deleteSnews_news(String jsj_snews_news_id) {
 		Session session = getSession();
-		String hql = "delete from jsj_snews_content content where content.content_news='" + jsj_snews_news_id + "'";
+////////////////////?????????????????hql是否正确
+		String hql = "delete from jsj_snews_news news where news.jsj_snews_news_id='" + jsj_snews_news_id + "'";
 		Query query = session.createQuery(hql);
 		query.executeUpdate();
 		return true;
@@ -43,37 +41,52 @@ public class SNewsNewsDaoImpl implements SNewsNewsDao {
 
 	@Override
 	public Boolean deleteSnews_content(String content_news) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = getSession();
+////////////////////?????????????????hql是否正确
+		String hql = "delete from jsj_snews_content content where content.content_news='" + content_news + "'";
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
+		return true;
 	}
 
 	@Override
 	public Boolean updateSnews_news(jsj_snews_news jsj_snews_news_id) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = getSession();
+		String hql = "update sjsj_snews_news news set news.news_title='" + jsj_snews_news_id.getNews_title() + "',news.news_img='"
+				+ jsj_snews_news_id.getNews_img() +  "',news.news_category='" + jsj_snews_news_id.getNews_category()
+				+ "',news.news_gmt_show='" + jsj_snews_news_id.getNews_gmt_show() + "',news.news_gmt_modified='"
+				+ jsj_snews_news_id.getNews_gmt_modified() + "' where news.jdj_snews_news_id='" + jsj_snews_news_id.getJsj_snews_news_id() + "'";
+		System.out.println(hql);
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
+		return true;
 	}
 
 	@Override
 	public Boolean updateSnews_content(jsj_snews_content content_news) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public jsj_snews_news querySnews_news() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = getSession();
+		String hql = "update jsj_snews_content content set content.content_text='" + content_news.getContent_text()
+				+ "',content.content_gmt_modified='" + content_news.getContent_gmt_modified()
+				+ "' where content.jsj_snews_content_id='" + content_news.getJsj_snews_content_id() + "'";
+		Query query = session.createQuery(hql);
+		query.executeUpdate();
+		return true;
 	}
 
 	@Override
 	public jsj_snews_news querySnews_news_ByNewsID(String jsj_snews_news_id) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = getSession();
+		String hql = "from jsj_snews_news  where jsj_snews_news_id='" + jsj_snews_news_id + "'";
+		jsj_snews_news news = (jsj_snews_news) session.createQuery(hql).uniqueResult();
+		return news;
 	}
 
 	@Override
 	public jsj_snews_content querySnews_content_ByNewsID(String jsj_snews_news_id) {
-		return null;
+		Session session = getSession();
+		String hql = "from jsj_snews_content  where content_news='" + jsj_snews_news_id + "'";
+		jsj_snews_content content = (jsj_snews_content) session.createQuery(hql).uniqueResult();
+		return content;
 	}
 
 	@Override
@@ -87,16 +100,14 @@ public class SNewsNewsDaoImpl implements SNewsNewsDao {
 
 	@Override
 	public List<jsj_snews_news> querySnews_news_ByNewsTitle(String searchWords) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = getSession();
+		String hql = "from jsj_snews_news news where (news.news_title like '%" + searchWords
+				+ "%') order by news_gmt_show desc";
+		Query query = session.createQuery(hql);
+		List<jsj_snews_news> news_list = query.list();
+		return news_list;
 	}
 
-	@Override
-	public List<jsj_snews_content> queryContentList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 	private SessionFactory sessionFactory;
 
 	public Session getSession() {
@@ -119,92 +130,6 @@ public class SNewsNewsDaoImpl implements SNewsNewsDao {
 	 * 
 	 * 
 	*//***********************************************************************************************************************************************************************//*	
-
-	@Override
-	public List<NewsAndCategoryAndContentDTO> queryNewsAndCategoryAndContentByNewsTitle(String jsj_snews_news_title) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public void updateNewsBrowse(String newsID) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public page_list_newsVO queryAllNewsAndCategoryAndContentByPage(page_list_newsVO page_list_news) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	private SessionFactory sessionFactory;
-
-	public Session getSession() {
-
-		return this.sessionFactory.getCurrentSession();
-	}
-
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
-
-	@Override
-	public jsj_snews_content get_Content_ByNewsID(jsj_snews_news news) {
-		
-		Session session = getSession();
-
-		String hql = "from jsj_snews_content content where content.content_news='" + news.getJsj_snews_news_id() + "'";
-
-		Query query = session.createQuery(hql);
-
-		jsj_snews_content content = (jsj_snews_content) query.uniqueResult();
-
-		return content;
-		}
-
-	@Override
-	public List<jsj_snews_news> queryNewsList() {
-		
-		Session session = getSession();
-
-		String hql = "from jsj_snews_news";
-
-		Query query = session.createQuery(hql);
-
-		List<jsj_snews_news> newsList = query.list();
-
-		return newsList;
-	}
-	
-	public List<jsj_snews_content> queryContentListByNewsID() {
-		return null;
-		
-	}
-
-	@Override
-	public List<jsj_snews_content> queryContentList() {
-
-		Session session = getSession();
-
-		String hql = "from jsj_snews_content";
-
-		Query query = session.createQuery(hql);
-
-		List<jsj_snews_content> newsList = query.list();
-
-		return newsList;
-	}*/
-
-	
-
-
-	
 /*	@Override
 	public void updateContent(snews_content content) {
 
@@ -224,7 +149,6 @@ public class SNewsNewsDaoImpl implements SNewsNewsDao {
 	public void updateNews(snews_news news) {
 
 		Session session = getSession();
-
 		String hql = "update snews_news news set news.news_title='" + news.getNews_title() + "',news.news_img='"
 				+ news.getNews_img() +  "',news.news_category='" + news.getNews_category()
 				+ "',news.news_gmt_show='" + news.getNews_gmt_show() + "',news.news_gmt_modified='"
@@ -237,19 +161,6 @@ public class SNewsNewsDaoImpl implements SNewsNewsDao {
 		query.executeUpdate();
 
 	}
-*/
-	/*public snews_news get_News_ByID(String newsID) {
-
-		Session session = getSession();
-
-		String hql = "from snews_news news where news.snews_news_id='" + newsID + "'";
-
-		Query query = session.createQuery(hql);
-
-		snews_news news = (snews_news) query.uniqueResult();
-
-		return news;
-	}*/
 
 /*	
 	@Override
