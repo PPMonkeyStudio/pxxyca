@@ -8,8 +8,7 @@ import com.pxxyca.snews.domain.jsj_snews_news;
 
 
 public interface SNewsCategoryDao {
-	
-	Boolean saveSnews_caegory(jsj_snews_category category);
+	Boolean saveSnews_category(jsj_snews_category category);
 	
 	Boolean deleteSnews_category(String news_category);
 
@@ -17,13 +16,8 @@ public interface SNewsCategoryDao {
 	
 	jsj_snews_category querySnews_category_ByNewsCategory(String news_category);
 	
-	jsj_snews_category querySnews_categoty_ByNewsID();
-	
 	List<jsj_snews_category> queryAllSnews_category();
 
-	Boolean addCategory(jsj_snews_category category);
-
-	
 	/*public Boolean addCategory(jsj_snews_category category);
 
 	

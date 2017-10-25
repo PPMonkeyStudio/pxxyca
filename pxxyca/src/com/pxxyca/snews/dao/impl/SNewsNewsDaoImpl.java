@@ -52,7 +52,7 @@ public class SNewsNewsDaoImpl implements SNewsNewsDao {
 	@Override
 	public Boolean updateSnews_news(jsj_snews_news jsj_snews_news_id) {
 		Session session = getSession();
-		String hql = "update sjsj_snews_news news set news.news_title='" + jsj_snews_news_id.getNews_title() + "',news.news_img='"
+		String hql = "update jsj_snews_news news set news.news_title='" + jsj_snews_news_id.getNews_title() + "',news.news_img='"
 				+ jsj_snews_news_id.getNews_img() +  "',news.news_category='" + jsj_snews_news_id.getNews_category()
 				+ "',news.news_gmt_show='" + jsj_snews_news_id.getNews_gmt_show() + "',news.news_gmt_modified='"
 				+ jsj_snews_news_id.getNews_gmt_modified() + "' where news.jdj_snews_news_id='" + jsj_snews_news_id.getJsj_snews_news_id() + "'";
@@ -107,11 +107,10 @@ public class SNewsNewsDaoImpl implements SNewsNewsDao {
 		List<jsj_snews_news> news_list = query.list();
 		return news_list;
 	}
-
+	
 	private SessionFactory sessionFactory;
-
+	
 	public Session getSession() {
-
 		return this.sessionFactory.getCurrentSession();
 	}
 

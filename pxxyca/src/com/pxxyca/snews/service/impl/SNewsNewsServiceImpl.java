@@ -32,12 +32,13 @@ public class SNewsNewsServiceImpl implements SNewsNewsService {
 		content.setContent_gmt_create(TimeUtil.getStringSecond());
 		content.setContent_gmt_modified(content.getContent_gmt_create());
 		jsj_snews_category category = newsAndCategoryAndContentDTO.getCategory();
-		category.setJsj_snews_category_id(UUID.randomUUID().toString());
-		category.setCategory_gmt_create(TimeUtil.getStringSecond());
-		category.setCategory_gmt_modified(category.getCategory_gmt_create());
+//		category.setJsj_snews_category_id(UUID.randomUUID().toString());
+//		category.setCategory_gmt_create(TimeUtil.getStringSecond());
+//		category.setCategory_gmt_modified(category.getCategory_gmt_create());
 		sNewsNewsDao.saveSnews_news(news);
 		sNewsNewsDao.saveSnews_content(content);
-		sNewsCategoryDao.saveSnews_caegory(category);
+		sNewsCategoryDao.saveSnews_category(category);
+//		NewsAndCategoryAndContentDTO newsAndCategoryAndContentDTO2 = new NewsAndCategoryAndContentDTO(news, category, content);
 		return true;
 	}
 
