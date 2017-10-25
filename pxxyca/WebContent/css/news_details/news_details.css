@@ -1,0 +1,29 @@
+      *{
+      	margin: 0;
+      	padding: 0;
+      	font-family: "Î¢ÈíÑÅºÚ";
+      
+      }
+      
+      #show_news li{
+      	width: 270px;
+      	height: 220px;
+      	float: left;
+     margin-left: 25px;
+      	list-style: none;
+      }
+  
+      #show_news img{
+      	width: 270px;
+      	height: 145px;
+      	
+      }
+      #show_news span{
+      	font-size: 18px;
+      	color: #003262;
+      }
+      #show_news span:hover{
+      	color:#c4820e;
+    	cursor: pointer;
+      }
+     

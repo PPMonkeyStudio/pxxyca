@@ -1,0 +1,9 @@
+eclipse.preferences.version=1
+encoding//src/com/pxxyca/snews/action/SNewsNewsAction.java=UTF-8
+encoding//src/com/pxxyca/snews/dao/SNewsNewsDao.java=UTF-8
+encoding//src/com/pxxyca/snews/dao/impl/SNewsNewsDaoImpl.java=UTF-8
+encoding//src/com/pxxyca/snews/domain/page_list_newsVO.java=UTF-8
+encoding//src/util/TimeUtil.java=GBK
+encoding//src/util/md5.java=GBK
+encoding//src/util/uuid.java=GBK
+encoding/<project>=UTF-8
