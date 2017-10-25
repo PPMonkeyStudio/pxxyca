@@ -32,12 +32,13 @@ public class SNewsNewsServiceImpl implements SNewsNewsService {
 		content.setContent_gmt_create(TimeUtil.getStringSecond());
 		content.setContent_gmt_modified(content.getContent_gmt_create());
 		jsj_snews_category category = newsAndCategoryAndContentDTO.getCategory();
-		category.setJsj_snews_category_id(UUID.randomUUID().toString());
-		category.setCategory_gmt_create(TimeUtil.getStringSecond());
-		category.setCategory_gmt_modified(category.getCategory_gmt_create());
+//		category.setJsj_snews_category_id(UUID.randomUUID().toString());
+//		category.setCategory_gmt_create(TimeUtil.getStringSecond());
+//		category.setCategory_gmt_modified(category.getCategory_gmt_create());
 		sNewsNewsDao.saveSnews_news(news);
 		sNewsNewsDao.saveSnews_content(content);
-		sNewsCategoryDao.saveSnews_caegory(category);
+		sNewsCategoryDao.saveSnews_category(category);
+//		NewsAndCategoryAndContentDTO newsAndCategoryAndContentDTO2 = new NewsAndCategoryAndContentDTO(news, category, content);
 		return true;
 	}
 
@@ -101,108 +102,9 @@ public class SNewsNewsServiceImpl implements SNewsNewsService {
 	}
 
 
-	/*@Override
-	public boolean addContents(jsj_snews_content content) {
-		
-		content.setJsj_snews_content_id(UUID.randomUUID().toString());
-		
-		content.setContent_gmt_create(TimeUtil.getStringSecond());
-		
-		content.setContent_gmt_modified(content.getContent_gmt_create());
-		
-		System.out.println(content.toString());
-		
-		sNewsNewsDao.addContents(content);
-		
-		return true;
-	}*/
-	
-	/*@Override
-	public boolean addCategory(jsj_snews_category caegory) {
-		// TODO Auto-generated method stub
-		return false;
-	}*/
-	
-
-
-
-//	@Override
-//	public void updateContent(snews_content content) {
-//		
-//
-//		content.setContent_gmt_modified(TimeUtil.getStringSecond());
-//
-//		sNewsNewsDao.updateContent(content);
-//	}
-
-
-/*	public NewsAndCategoryAndContentDTO get_NewsAndCategoryAndContent_ByNewsID(String newsID) {
-
-		snews_news news = sNewsNewsDao.get_News_ByID(newsID);
-
-		snews_category category = snewsCategoryDao.get_Category_ByNewsCategory(news);
-
-		snews_content content = sNewsNewsDao.get_Content_ByNewsID(news);
-
-		NewsAndCategoryAndContentDTO newsAndCategoryAndContentDTO = new NewsAndCategoryAndContentDTO(news, category,
-				content);
-
-		return newsAndCategoryAndContentDTO;
-	}*/
-
-	/*@Override
-	public void removeNewsByID(snews_news news) {
-
-		news = sNewsNewsDao.get_News_ByID(news.getSnews_news_id());
-
-		// ����
-		sNewsNewsDao.removeNewsByID(news);
-
-		// ����
-
-		sNewsNewsDao.removeContentByNewsID(news);
-
-		// ����ͼƬ
-
-		removeContentImgByNewsID(news);
-
-		// ����
-
-		removeNewsAnnexByNewsID(news);
-
-		// ��Сͼ
-
-		removeNewsBImgByNewsID(news);
-
-		removeNewsSImgByNewsID(news);
-		
-		 * 
-		 * 
-		 * 
-		 
-		System.out.println("12");
-		// ɾ���ֲ�
-		;
-		;
-		System.out.println("32");
-		// ɾ�����ָ������
-	}
-
-
-	@Override
-	public void removeContentImgByNewsID(snews_news news) {
-		File root = new File("C://xxyjsjgcxy/xxyjsjgcxy_img/snews_news/content");
-		File[] allFiles = root.listFiles();
-
-		for (File file : allFiles) {
-			String[] splitFileName = file.getName().split("_");
-			if (splitFileName[0].equals(news.getSnews_news_id())) {
-				file.delete();
-			}
-		}
-
-	}
-
+	/*
+	 * 
+	 * 
 	public ListVO list_NewsAndCategoryAndContent_ByDateAndPage(ListVO listVO) throws ParseException {
 		List<NewsAndCategoryAndContentDTO> newsAndCategoryAndContentDTOList = new ArrayList<NewsAndCategoryAndContentDTO>();
 
@@ -415,10 +317,6 @@ public class SNewsNewsServiceImpl implements SNewsNewsService {
 	}
 
 	public void removeOldContentImg(snews_news news, snews_content content) {
-
-		
-		 * ��������ͼƬ���б�
-		 
 		List<String> imgNameList = new ArrayList<String>();
 		String[] splitContent1 = content.getContent_text().split(news.getSnews_news_id() + "_");
 		if (splitContent1.length > 1) {
@@ -468,9 +366,6 @@ public class SNewsNewsServiceImpl implements SNewsNewsService {
 	public snews_content removeContentTemporaryImg_saveContentImg(snews_news news, snews_content content) {
 		System.out.println(
 				"deleteContentTemporaryImg_saveContentImg:-----newsID��----------" + news.getSnews_news_id());
-		
-		 * ��������ͼƬ���б�
-		 
 		List<String> imgNameList = new ArrayList<String>();
 		String[] splitContent1 = content.getContent_text().split(news.getSnews_news_id() + "_");
 		if (splitContent1.length > 1) {
@@ -484,32 +379,15 @@ public class SNewsNewsServiceImpl implements SNewsNewsService {
 		} else {
 			System.out.println("-----------------------------��ͼƬ------------------------");
 		}
-		
-		 * ת����ʱͼƬ
-		 
-
 		File root = new File("C://xxyjsjgcxy/xxyjsjgcxy_img/snews_news/content_temporary");
-
 		File[] allFiles = root.listFiles();
-
-		
-		 * ���ļ���������ͼƬ���������ŵ�
-		 
 		for (File file : allFiles) {
 			String[] splitFileName = file.getName().split("_");
-
 			if (splitFileName[0].equals(news.getSnews_news_id())) {
-				
-				 * �����ŵ�ͼƬ,���ͼƬ����������ƥ�䣬��ת�ƣ������ɾ��
-				 
 				System.out.println("splitFileName[1]:" + splitFileName[1]);
 				System.out.println(imgNameList.toString());
 				for (String imgName : imgNameList) {
-
 					if (splitFileName[1].equals(imgName)) {
-						
-						 * ת��
-						 
 						File newFile = new File("C://xxyjsjgcxy/xxyjsjgcxy_img/snews_news/content/" + file.getName());
 						try {
 							FileUtils.copyFile(file, newFile);
@@ -519,286 +397,15 @@ public class SNewsNewsServiceImpl implements SNewsNewsService {
 						break;
 					}
 				}
-				
-				 * ��������ƥ�䵽��Ҫɾ����ʱ�ļ������ڵ��ļ��Ѿ�ת����
-				 
 				file.delete();
 			}
 
 		}
-		
-		 * �滻���ݵ�ͼƬ��
-		 
 		content.setContent_text(content.getContent_text().replaceAll("getNewsTemporaryContentImg\\?imgName=",
 				"getNewsContentImg?imgName="));
 		return content;
 	}
-
-	@Override
-	public List<NewsAndCategoryAndContentDTO> list_NewsAndCategoryAndContent_ByCategorySon_Num(String categoryName,
-			int num) {
-
-		List<NewsAndCategoryAndContentDTO> newsAndCategoryAndContentDTOList = new ArrayList<NewsAndCategoryAndContentDTO>();
-
-		NewsAndCategoryAndContentDTO newsAndCategoryAndContentDTO;
-
-		snews_category category;
-
-		snews_content content;
-
-		List<snews_category> categorySonList = snewsCategoryDao.listCategoryByFatherName(categoryName);
-
-		List<snews_news> newsList = new ArrayList<snews_news>();
-
-		for (snews_category categorySon : categorySonList) {
-
-			newsList.addAll(sNewsNewsDao.list_News_ByCategory_Num(categorySon.getCategory_name(), num));
-
-			System.out.println("�����" + categorySon.getCategory_name());
-		}
-
-		for (snews_news news : newsList) {
-
-			content = sNewsNewsDao.get_Content_ByNewsID(news);
-
-			category = snewsCategoryDao.get_Category_ByNewsCategory(news);
-
-			newsAndCategoryAndContentDTO = new NewsAndCategoryAndContentDTO(news, category, content);
-
-			newsAndCategoryAndContentDTOList.add(newsAndCategoryAndContentDTO);
-		}
-
-		return newsAndCategoryAndContentDTOList;
-	}
-
-	@Override
-	public List<NewsAndCategoryAndContentDTO> list_NewsAndCategoryAndContent_ByCategory_Num(String categoryName,
-			int num) {
-
-		List<NewsAndCategoryAndContentDTO> newsAndCategoryAndContentDTOList = new ArrayList<NewsAndCategoryAndContentDTO>();
-
-		NewsAndCategoryAndContentDTO newsAndCategoryAndContentDTO;
-
-		snews_category category;
-
-		snews_content content;
-
-		List<snews_news> newsList = sNewsNewsDao.list_News_ByCategory_Num(categoryName, num);
-
-		for (snews_news news : newsList) {
-
-			content = sNewsNewsDao.get_Content_ByNewsID(news);
-
-			category = snewsCategoryDao.get_Category_ByNewsCategory(news);
-
-			newsAndCategoryAndContentDTO = new NewsAndCategoryAndContentDTO(news, category, content);
-
-			newsAndCategoryAndContentDTOList.add(newsAndCategoryAndContentDTO);
-		}
-
-		return newsAndCategoryAndContentDTOList;
-	}
-
-	@Override
-	public List<NewsAndCategoryAndContentDTO> list_NewsAndCategoryAndContent_ByRecommend_Num(int num) {
-
-		List<NewsAndCategoryAndContentDTO> newsAndCategoryAndContentDTOList = new ArrayList<NewsAndCategoryAndContentDTO>();
-
-		NewsAndCategoryAndContentDTO newsAndCategoryAndContentDTO;
-
-		snews_category category;
-
-		snews_content content;
-
-		List<snews_news> newsList = sNewsNewsDao.list_News_ByRecommend_Num(num);
-
-		for (snews_news news : newsList) {
-
-			content = sNewsNewsDao.get_Content_ByNewsID(news);
-
-			category = snewsCategoryDao.get_Category_ByNewsCategory(news);
-
-			newsAndCategoryAndContentDTO = new NewsAndCategoryAndContentDTO(news, category, content);
-
-			newsAndCategoryAndContentDTOList.add(newsAndCategoryAndContentDTO);
-		}
-
-		return newsAndCategoryAndContentDTOList;
-	}
-
-	@Override
-	public List<NewsAndCategoryAndContentDTO> list_NewsAndCategoryAndContent_ByKeywords_Num(String keywords, int num,
-			String newsID) {
-
-		List<NewsAndCategoryAndContentDTO> newsAndCategoryAndContentDTOList = new ArrayList<NewsAndCategoryAndContentDTO>();
-
-		NewsAndCategoryAndContentDTO newsAndCategoryAndContentDTO;
-
-		snews_category category;
-
-		snews_content content;
-
-		List<snews_news> newsList = sNewsNewsDao.list_News_ByKeywords(keywords, newsID);
-
-		for (snews_news news : newsList) {
-
-			content = sNewsNewsDao.get_Content_ByNewsID(news);
-
-			category = snewsCategoryDao.get_Category_ByNewsCategory(news);
-
-			newsAndCategoryAndContentDTO = new NewsAndCategoryAndContentDTO(news, category, content);
-
-			newsAndCategoryAndContentDTOList.add(newsAndCategoryAndContentDTO);
-		}
-
-		return newsAndCategoryAndContentDTOList;
-	}
-
-	@Override
-	public List<snews_news> listNewsAll() {
-
-		return sNewsNewsDao.list_News_All();
-	}
-
-	@Override
-	public List<NewsAndCategoryAndContentDTO> list_NewsAndCategoryAndContent_All() {
-
-		List<NewsAndCategoryAndContentDTO> newsAndCategoryAndContentDTOList = new ArrayList<NewsAndCategoryAndContentDTO>();
-
-		NewsAndCategoryAndContentDTO newsAndCategoryAndContentDTO;
-
-		snews_category category;
-
-		snews_content content;
-
-		List<snews_news> newsList = sNewsNewsDao.list_News_All();
-
-		for (snews_news news : newsList) {
-
-			content = sNewsNewsDao.get_Content_ByNewsID(news);
-
-			category = snewsCategoryDao.get_Category_ByNewsCategory(news);
-
-			newsAndCategoryAndContentDTO = new NewsAndCategoryAndContentDTO(news, category, content);
-
-			newsAndCategoryAndContentDTOList.add(newsAndCategoryAndContentDTO);
-		}
-
-		return newsAndCategoryAndContentDTOList;
-	}
-
-	@Override
-	public boolean save_Content(snews_content content) {
-
-		content.setSnews_content_id(UUID.randomUUID().toString());
-
-		content.setContent_gmt_create(TimeUtil.getStringSecond());
-
-		content.setContent_gmt_modified(content.getContent_gmt_create());
-
-		System.out.println(content.toString());
-
-		sNewsNewsDao.saveContent(content);
-
-		return true;
-	}
-
-	@Override
-	public boolean save_News(snews_news news) {
-		
-		news.setNews_gmt_create(TimeUtil.getStringSecond());
-		
-		news.setNews_gmt_modified(news.getNews_gmt_create());
-		
-		sNewsNewsDao.saveNews(news);
-		
-		return true;
-	}
-	
-	@Override
-	public List<NewsAndCategoryAndContentDTO> list_NewsAndCategoryAndContent_All() {
-		
-		return sNewsNewsDao.list_NewsAndCategoryAndContent_All();
-	}
-
-	
-	 * 
-	 
-
-
-	@Override
-	public snews_content removeContentTemporaryImg_saveContentImg(snews_news news, snews_content content) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void removeOldContentImg(snews_news news, snews_content content) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeNewsByID(snews_news news) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void removeContentImgByNewsID(snews_news news) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateNews(snews_news news) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void updateNewsBrowse(String newsID) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeOldAnnex(snews_news news, String remain_oldAnnex) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeNewsAnnexByNewsID(snews_news news) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeNewsBImgByNewsID(snews_news news) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeNewsSImgByNewsID(snews_news news) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public NewsAndCategoryAndContentDTO get_NewsAndCategoryAndContent_ByNewsID(String newsID) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public page_list_newsVO list_NewsAndCategoryAndContent_ByPage(page_list_newsVO page_list_news) {
-		// TODO Auto-generated method stub
-		return null;
-	}*/
-
+	*/
 
 
 

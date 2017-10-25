@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<bean id="sNewsCategoryAction" class="com.pxxyca.snews.action.SNewsCategoryAction"
+		scope="prototype">
+		<property name="sNewsCategoryService" ref="sNewsCategoryService"></property>
+	</bean>
+	<!-- -->
+	<bean id="sNewsCategoryService"
+		class="com.pxxyca.snews.service.impl.SNewsCategoryServiceImpl">
+		<property name="sNewsCategoryDao" ref="sNewsCategoryDao"></property>
+	</bean>
+	<!-- -->
+	<bean id="sNewsCategoryDao" class="com.pxxyca.snews.dao.impl.SNewsCategoryDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- --><!-- -->
+	<bean id="sNewsNewsAction" class="com.pxxyca.snews.action.SNewsNewsAction"
+		scope="prototype">
+		<property name="sNewsNewsService" ref="sNewsNewsService"></property>
+	</bean>
+	<!-- -->
+	<bean id="sNewsNewsService" class="com.pxxyca.snews.service.impl.SNewsNewsServiceImpl">
+		<property name="sNewsNewsDao" ref="sNewsNewsDao"></property>
+		<property name="sNewsCategoryDao" ref="sNewsCategoryDao"></property>
+	</bean>
+	<!-- -->
+	<bean id="sNewsNewsDao" class="com.pxxyca.snews.dao.impl.SNewsNewsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+</beans>
