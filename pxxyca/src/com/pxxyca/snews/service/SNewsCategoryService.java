@@ -20,42 +20,4 @@ public interface SNewsCategoryService {
 	List<jsj_snews_category> queryAllSnews_category();
 
 
-	/*public snews_category getCategoryByName(snews_category category);
-
-	
-	 * 
-	 
-	public boolean saveCategory(snews_category category);
-
-	
-	 * 
-	 
-	public List<snews_category> listCategoryByRankOne();
-
-	public List<snews_category> listCategoryByName(String category_name);
-
-	public List<snews_category> listCategoryByRankOne_ForHeader();
-
-	public List<CategoryListDTO> listCategoryOneAndSon();
-
-	public List<snews_category> listCategoryAll();
-
-	public List<snews_category> listCategoryRankTwo();
-
-	
-	 * 
-	 
-	public boolean updateCategoryShowByID(snews_category category);
-
-	public boolean updateCategoryAllByID(snews_category category);
-
-	public boolean update_RemoveCategoryNewsByNewsID(String newsID);
-
-	
-	 * 
-	 
-	public snews_category getCategoryByID(snews_category category);
-
-	public boolean removeCategoryByID(snews_category category);*/
-
 }
