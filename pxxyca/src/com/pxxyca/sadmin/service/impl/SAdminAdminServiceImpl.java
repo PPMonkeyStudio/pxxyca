@@ -64,10 +64,6 @@ public class SAdminAdminServiceImpl implements SAdminAdminService {
 		if ("管理员子系统权限".equals(permission_sadmin)) {
 			sadminPermission = "管理员子系统权限";
 		}
-		if ("新闻子系统权限".equals(permission_snews) || "管理员子系统权限".equals(permission_sadmin)) {
-			snewsPermission = "新闻子系统权限";
-			sadminPermission = "管理员子系统权限";
-		}
 		permission[0] = sadminPermission;
 		permission[1] = snewsPermission;
 		return permission;
